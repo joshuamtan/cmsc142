@@ -6,6 +6,7 @@ void printCube(int cube[9][12]){
         }
         printf("\n");
     }
+    printf("\n");
 }
 
 int getColor(char color){
