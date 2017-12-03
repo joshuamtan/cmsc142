@@ -2,7 +2,10 @@ void printCube(int cube[9][12]){
     int i, j;
     for(i=0; i<9; i++){
         for(j=0; j<12; j++){
-            printf("%2d ", cube[i][j]);
+            if(cube[i][j] != 0)
+                printf("%2d ", cube[i][j]);
+            else
+                printf("   ");
         }
         printf("\n");
     }
