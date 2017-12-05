@@ -561,13 +561,56 @@ void applyRotation(int rotate, int c[N*3][N*4]){
     }
 }
 
+void printSolution(int rotate){
+    switch(rotate){
+        case 1:
+            printf("W, Counter Clockwise");
+            break;
+        case 2:
+            printf("R, Counter Clockwise");
+            break;
+        case 3:
+            printf("B, Counter Clockwise");
+            break;
+        case 4:
+            printf("O, Counter Clockwise");
+            break;
+        case 5:
+            printf("G, Counter Clockwise");
+            break;
+        case 6:
+            printf("Y, Counter Clockwise");
+            break;
+        case 7:
+            printf("W, Clockwise");
+            break;
+        case 8:
+            printf("R, Clockwise");
+            break;
+        case 9:
+            printf("B, Clockwise");
+            break;
+        case 10:
+            printf("O, Clockwise");
+            break;
+        case 11:
+            printf("G, Clockwise");
+            break;
+        case 12:
+            printf("Y, Clockwise");
+            break;
+        default:
+            break;
+    }
+}
+
+
 
 void solveCube(){
 	int start, move;
 	int nopts[L+2]; //array top of stacks
 	int option[L+2][L+2]; //array stacks of options
 	int i, candidate;
-    
 
 	move = start = 0; 
 	nopts[start]= 1;
@@ -584,34 +627,44 @@ void solveCube(){
                     copy[i][j] = cube[i][j];
                 }
             }
-//  411 6 8 4
-			//print - solution found!
-			if(move == 10){
-                // for(i=1;i<move;i++)
-                //     printf("%2i",option[i][nopts[i]]);
-                // printf("\n");
-				for(i=1;i<move;i++)
-					applyRotation(option[i][nopts[i]], copy);
 
-                if(checkSolved(copy) == 1){
-                    for(i=1;i<move;i++)
-                        printf("%2i",option[i][nopts[i]]);
-                    printf("\n");
-                    for(i=1;i<move;i++)
-					    applyRotation(option[i][nopts[i]], cube);
+            
 
+            for(i=1;i<move;i++){
+                if(nopts[i] == nopts[i+1] && nopts[i+1] == nopts[i+2] && nopts[i+2] == nopts[i+3]){
                     break;
+                }else if(abs(nopts[i] - nopts[i+1]) == 6){
+                    break;
+                }else{
+                    // printf("%2i", option[i][nopts[i]]);
+                    applyRotation(option[i][nopts[i]], copy);
                 }
-			}
-			//populate
-			else //find candidates
-			{
-				for(candidate = L; candidate >=1; candidate --) 
-				{
-					nopts[move]++;
-					option[move][nopts[move]] = candidate;
-				} 
-			}
+            }
+            
+            // printf("\n");
+            
+            // for(i=1;i<move;i++)
+			// 	applyRotation(option[i][nopts[i]], copy);
+                
+			if(checkSolved(copy) == 1){
+                printf("Solution: \n");
+                for(i=1;i<move;i++){
+                    printSolution(option[i][nopts[i]]);
+                    printf("\n");
+                }
+                printf("\n");
+                
+                
+			}else if(move == 11){
+
+            }else{
+                for(candidate = L; candidate >=1; candidate --) 
+                    {
+                        nopts[move]++;
+                        option[move][nopts[move]] = candidate;
+                    } 
+            
+            }
 		}
 		else 
 		{
@@ -627,35 +680,9 @@ void solveCube(){
 int main(){
     loadCube(cube);
     printCube(cube);
-    // rotate_cube(1, 0);
-    // rotate_cube(2, 0);
-    // rotate_cube(3, 0);
-    // rotate_cube(4, 0);
-    // rotate_cube(5, 0);
-    // rotate_cube(6, 0);
-    // rotate_cube(1, 1);
-    // rotate_cube(2, 1);
-    // rotate_cube(3, 1);
-    // rotate_cube(5, 1);
-    // rotate_cube(6, 1);
     solveCube();
 
-    // rotate_cube(4,0,cube);
-    // rotate_cube(5,1,cube);
-    // rotate_cube(6,0,cube);
-    // rotate_cube(2,1,cube);
-    // rotate_cube(4,0,cube);
-    
-    // applyRotation(4, cube);
-    // applyRotation(11, cube);
-    // applyRotation(6, cube);
-    // applyRotation(8, cube);
-    // applyRotation(4, cube);
-    
-    
-    printCube(cube);
-    
-    // printf("%d", checkSolved(cube));
+    // printCube(cube);
 }
 
 
